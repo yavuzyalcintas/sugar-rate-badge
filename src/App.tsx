@@ -8,7 +8,7 @@ function coonvertBlob(blob, filename) {
 
   const link = document.createElement("a");
   link.href = objectUrl;
-  //link.download = filename;
+  link.download = filename;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -20,13 +20,6 @@ function App() {
   const [searchParams] = useSearchParams();
 
   const svgRef = useRef<any>();
-
-  useEffect(() => {
-    // @ts-ignore
-    const svg = svgRef.current.innerHTML;
-    const blob = new Blob([svg], { type: "image/svg+xml" });
-    coonvertBlob(blob, `myimage.svg`);
-  }, []);
 
   const downloadSVG = useCallback(() => {
     // @ts-ignore
@@ -44,10 +37,10 @@ function App() {
           rank={searchParams.get("rank") || ""}
         />
       </div>
-
+      {/* 
       <div>
         <button onClick={downloadSVG}>Download</button>
-      </div>
+      </div> */}
     </>
   );
 }
