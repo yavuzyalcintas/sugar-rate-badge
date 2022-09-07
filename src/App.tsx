@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import SugarRate from "./components/SugarRate";
+import { useSearchParams } from "react-router-dom";
 
 // @ts-ignore
 function coonvertBlob(blob, filename) {
@@ -16,7 +17,7 @@ function coonvertBlob(blob, filename) {
 }
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [searchParams] = useSearchParams();
 
   const svgRef = useRef<any>();
 
@@ -37,7 +38,11 @@ function App() {
   return (
     <>
       <div ref={svgRef}>
-        <SugarRate sugarRate={10} badgeTitle={"TEST"} rank="A" />
+        <SugarRate
+          sugarRate={+(searchParams.get("sugarRate") || 0)}
+          badgeTitle={searchParams.get("badgeTitle") || ""}
+          rank={searchParams.get("rank") || ""}
+        />
       </div>
 
       <div>
